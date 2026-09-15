@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Color palette — Suti & Thread */
+  --color-kora: #F2ECDD;
+  --color-ink: #2B211C;
+  --color-mahogany: #7A2331;
+  --color-peacock: #0F5C57;
+  --color-zari-gold: #B8860B;
+  --color-charcoal: #4A4038;
+
+  /* Semantic aliases */
+  --color-background: #F2ECDD;
+  --color-foreground: #2B211C;
+  --color-primary: #7A2331;
+  --color-secondary: #0F5C57;
+  --color-accent: #B8860B;
+  --color-muted: #4A4038;
+  --color-border: #4A403833;
+
+  /* Typography */
+  --font-heading: "Fraunces", serif;
+  --font-body: "Work Sans", sans-serif;
+}
+
+/* Base styles */
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+}
+
+/* Sentence case headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  text-transform: none;
+}
+
+/* Satin-stitch underline for form fields */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-bottom-color: var(--color-peacock);
+}
+
+/* Running-stitch dashed border animation on product cards */
+@keyframes stitch-in {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
