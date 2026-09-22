@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 import { isProtectedRoute, isAuthRoute } from "@/lib/supabase/middleware";
 
-export async function proxy(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
   // First: refresh the session
   const supabaseResponse = await updateSession(request);
 

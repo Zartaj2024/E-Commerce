@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Resend is only used in server-side actions; build-time initialization is skipped
+const resend = new Resend(process.env.RESEND_API_KEY || "dummy-key-for-build");
 
 const FROM_EMAIL = "Suti & Thread <onboarding@resend.dev>";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
