@@ -165,7 +165,8 @@ export async function updateOrderStatus(orderId: string, status: OrderStatus) {
   }
 
   // Send email notification (fire-and-forget)
-  const customerEmail = (currentOrder.profiles as any)?.email;
+  const customerEmail = (currentOrder.profiles as { email?: string } | null)
+    ?.email;
   if (customerEmail) {
     const statusLabels: Record<string, string> = {
       in_production: "In production",
@@ -270,7 +271,8 @@ export async function quoteCustomOrder(
   }
 
   // Send email notification (fire-and-forget)
-  const customerEmail = (currentOrder.profiles as any)?.email;
+  const customerEmail = (currentOrder.profiles as { email?: string } | null)
+    ?.email;
   if (customerEmail) {
     sendCustomOrderQuoteEmail({
       to: customerEmail,
@@ -332,7 +334,8 @@ export async function declineCustomOrder(requestId: string, reason?: string) {
   }
 
   // Send email notification (fire-and-forget)
-  const customerEmail = (currentOrder.profiles as any)?.email;
+  const customerEmail = (currentOrder.profiles as { email?: string } | null)
+    ?.email;
   if (customerEmail) {
     sendCustomOrderDeclinedEmail({
       to: customerEmail,

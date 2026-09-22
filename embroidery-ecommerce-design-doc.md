@@ -112,7 +112,28 @@ Every page's controls do something real, not just look clickable: filters actual
 
 ## 7. Motion
 
-One deliberate moment: the stitched border on product-card hover draws itself in (a short stroke-dashoffset animation, ~300ms) rather than simply appearing — echoing an actual stitch being pulled through. Everything else is a plain, fast (150ms) fade/opacity change. No scroll-triggered fade-ins on every section. Motion respects `prefers-reduced-motion`.
+A layered motion system using the `motion` library (import from `motion/react`). All animations respect `prefers-reduced-motion`.
+
+### Scroll reveals
+Content sections use `whileInView` with `viewport={{ once: true }}` for entrance animations. Staggered children (cards, list items) enter with 60ms cascading delay. Fade-up pattern: `opacity: 0, y: 24` to `opacity: 1, y: 0` over 600ms with cubic-bezier `[0.16, 1, 0.3, 1]`. Applied to: home page sections, product grid, about page, footer.
+
+### Hover and press micro-interactions
+Buttons use `whileHover={{ scale: 1.02 }}` (spring, stiffness 400, damping 17) and `whileTap={{ scale: 0.98 }}`. Primary buttons get a tinted shadow lift on hover (`shadow-mahogany/20`). Product cards lift with shadow + image scale on hover. The running-stitch dashed border on product-card hover draws itself in via CSS transition (~300ms).
+
+### Navigation
+Desktop: floating glass-pill nav with backdrop-blur. Mobile: hamburger icon morphs to X via Motion rotation, full-screen overlay with staggered link reveals (50ms delay each). Active page indicated by Peacock accent. Cart badge bounces with spring scale when count changes.
+
+### Page transitions
+Content fade-in on route change (200ms opacity). Loading skeletons shown during async navigations.
+
+### Skeleton loaders
+CSS shimmer animation (gradient sweep left-to-right, 1.8s loop). Applied to all data-fetching route loading states. Disabled under reduced motion.
+
+### Cart interactions
+`AnimatePresence` for add/remove with slide-out animation. Quantity change pulses the number. Remove slides item left and fades out.
+
+### Performance guards
+Animate only `transform` and `opacity` (GPU-accelerated). `viewport={{ once: true }}` on all scroll reveals. No `backdrop-blur` on scrolling containers. `will-change: transform` only on actively animating elements.
 
 ---
 

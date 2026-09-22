@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getCustomOrders } from "@/actions/account";
 import { OrderStatusBadge } from "@/components/admin/OrderStatusBadge";
+import type { CustomOrderRequest } from "@/lib/domain/customOrder";
 
 function formatPrice(amount: number): string {
   return `PKR ${amount.toLocaleString("en-PK")}`;
@@ -17,7 +18,7 @@ function formatDate(dateStr: string): string {
 }
 
 export default function CustomOrdersPage() {
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<CustomOrderRequest[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

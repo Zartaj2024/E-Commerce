@@ -89,7 +89,7 @@ export default function AdminOrderDetailPage({
               const variant = item.product_variants;
               const product = variant?.products;
               const custom = item.custom_order_request_id
-                ? (item as any).custom_order_requests
+                ? item.custom_order_requests
                 : null;
 
               return (

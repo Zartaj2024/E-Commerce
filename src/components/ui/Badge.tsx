@@ -4,10 +4,10 @@ interface BadgeProps {
 }
 
 const variantStyles: Record<string, string> = {
-  default: "bg-charcoal text-kora",
-  success: "bg-peacock text-kora",
-  warning: "bg-zari-gold text-kora",
-  info: "bg-mahogany text-kora",
+  default: "bg-charcoal text-kora shadow-sm shadow-charcoal/20",
+  success: "bg-peacock text-kora shadow-sm shadow-peacock/20",
+  warning: "bg-zari-gold text-kora shadow-sm shadow-zari-gold/20",
+  info: "bg-mahogany text-kora shadow-sm shadow-mahogany/20",
 };
 
 export function Badge({ children, variant = "default" }: BadgeProps) {

@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useCartStore, type CartItem as CartItemType } from "@/store/cart";
 import { formatPrice } from "@/lib/services/pricing";
 
@@ -9,9 +10,21 @@ interface CartItemProps {
 
 export function CartItem({ item }: CartItemProps) {
   const { updateQuantity, removeItem } = useCartStore();
+  const reduce = useReducedMotion();
 
   return (
-    <div className="flex gap-4 py-4 border-b border-charcoal/10">
+    <motion.div
+      layout={!reduce}
+      initial={reduce ? false : { opacity: 0, x: -16 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={
+        reduce
+          ? undefined
+          : { opacity: 0, x: -16, transition: { duration: 0.2 } }
+      }
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      className="flex gap-4 py-4 border-b border-charcoal/10"
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={item.imageUrl}
@@ -37,19 +50,25 @@ export function CartItem({ item }: CartItemProps) {
                 updateQuantity(item.variantId, item.quantity - 1)
               }
               disabled={item.quantity <= 1}
-              className="flex h-7 w-7 items-center justify-center rounded border border-charcoal/30 font-body text-sm text-ink transition-colors hover:bg-charcoal/5 disabled:opacity-50"
+              className="flex h-7 w-7 items-center justify-center rounded border border-charcoal/30 font-body text-sm text-ink transition-all duration-200 hover:bg-charcoal/5 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
             >
               −
             </button>
-            <span className="w-6 text-center font-body text-sm text-ink">
+            <motion.span
+              key={item.quantity}
+              initial={reduce ? false : { scale: 1.2 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.2 }}
+              className="w-6 text-center font-body text-sm text-ink"
+            >
               {item.quantity}
-            </span>
+            </motion.span>
             <button
               type="button"
               onClick={() =>
                 updateQuantity(item.variantId, item.quantity + 1)
               }
-              className="flex h-7 w-7 items-center justify-center rounded border border-charcoal/30 font-body text-sm text-ink transition-colors hover:bg-charcoal/5"
+              className="flex h-7 w-7 items-center justify-center rounded border border-charcoal/30 font-body text-sm text-ink transition-all duration-200 hover:bg-charcoal/5 hover:scale-105 active:scale-95"
             >
               +
             </button>
@@ -69,6 +88,6 @@ export function CartItem({ item }: CartItemProps) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

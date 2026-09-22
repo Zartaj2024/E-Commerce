@@ -12,7 +12,7 @@ import {
   CustomOrderSchema,
   type CustomOrderInput,
 } from "@/lib/validation/customOrderSchema";
-import { THREAD_COLORS } from "@/lib/domain/customOrder";
+import { THREAD_COLORS, type FabricOption } from "@/lib/domain/customOrder";
 
 const STEPS = ["Image", "Fabric & Colors", "Size & Placement", "Notes", "Review"] as const;
 
@@ -158,7 +158,7 @@ export function CustomOrderForm() {
           <div className="space-y-6">
             <h2 className="font-heading text-xl text-ink">Fabric & thread</h2>
             <FabricPicker
-              value={form.fabric as any}
+              value={form.fabric as FabricOption | ""}
               onChange={(v) => update("fabric", v)}
               error={errors.fabric}
             />
